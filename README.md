@@ -12,10 +12,10 @@ A user should be able to:
 - [ ] return to home page from anywhere on app
 
 ## Implementation Plan
-- [ ] write out project plan
-- [ ] design architecture of redux state
-- [ ] create wireframes using balsamiq
-- [ ] compartmentalize for the components. aka compomentalize
+- [x] write out project plan
+- [x] design architecture of redux state
+- [x] create wireframes using balsamiq
+- [x] compartmentalize for the components. aka compomentalize
 - [ ] organize components verses containers.
 - [ ] create redux store
 - [ ] create containers
