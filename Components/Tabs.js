@@ -10,24 +10,14 @@ import { connect } from 'react-redux';
 import { setActiveTab } from '../Actions/activeTabs';
 
 class Tabs extends Component {
-  constructor(props) {
-    super(props);
-    console.log('What is the redux store ----> ', this.props.activeTab);
-  }
 
   _onPress(event) {
-    console.log('What is event ----> ', event);
-    console.log('What is activeTab ----> ', this.props.setActiveTab);
-    console.log('What does active tab return ----> ', this.props.setActiveTab(event.title));
     this.props.setActiveTab(event.title);
   }
 
   render() {
     return (
       <View>
-        <View style={styles.topBuffer}>
-          <View />
-        </View>
         <FlatList
           horizontal={true}
           data={[
@@ -66,10 +56,6 @@ function mapStateToProps({ activeTab }) {
 export default connect(mapStateToProps, { setActiveTab })(Tabs);
 
 const styles = StyleSheet.create({
-  topBuffer: {
-    backgroundColor: '#00245e',
-    paddingTop: 0.15 * Dimensions.get('window').height,
-  },
   notSelected: {
     backgroundColor: '#00245e',
     width: 0.25 * Dimensions.get('window').width,
