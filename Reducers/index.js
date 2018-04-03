@@ -5,3 +5,5 @@ import searchBar from './searchBar';
 const rootReducer = combineReducers({
   activeTab, searchBar,
 });
+
+export default rootReducer;

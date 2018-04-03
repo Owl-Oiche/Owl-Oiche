@@ -1,9 +1,10 @@
 import { SET_ACTIVE_TAB } from '../Actions/activeTabs';
 
-export default function(state = '', action) {
+export default function(state = 1, action) {
   switch (action.type) {
     case SET_ACTIVE_TAB:
-      return { ...state, activeTabs: action.payload };
+      console.log('state in reducer ----> ', state);
+      return action.payload;
     default:
       return state;
   };

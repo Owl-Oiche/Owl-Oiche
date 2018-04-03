@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { StyleSheet, Text, View } from 'react-native';
 
 import reducers from '../Reducers';
-import MainPage from './mainPage';
+import Tabs from './Tabs';
 
 const store = createStore(
   reducers
@@ -14,7 +14,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={ store }>
-        <MainPage />
+        <Tabs />
       </Provider>
     );
   }
