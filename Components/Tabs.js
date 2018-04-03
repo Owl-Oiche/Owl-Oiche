@@ -57,27 +57,27 @@ export default connect(mapStateToProps, { setActiveTab })(Tabs);
 
 const styles = StyleSheet.create({
   notSelected: {
-    backgroundColor: '#00245e',
+    backgroundColor: '#d2d6d7',
     width: 0.25 * Dimensions.get('window').width,
     height: 25,
     alignItems: 'center',
   },
   selected: {
-    backgroundColor: '#00245e',
+    backgroundColor: '#4d5b62',
     borderStyle: 'solid',
-    borderWidth: 1,
-    borderBottomColor: '#e0e800',
-    borderTopColor: '#00245e',
-    borderRightColor: '#00245e',
-    borderLeftColor: '#00245e',
+    borderWidth: 5,
+    borderBottomColor: '#136b7b',
+    borderTopColor: '#4d5b62',
+    borderRightColor: '#4d5b62',
+    borderLeftColor: '#4d5b62',
     height: 25,
     width: 0.25 * Dimensions.get('window').width,
     alignItems: 'center',
   },
   text: {
-    color: 'white',
+    color: '#136b7b',
   },
   selectedText: {
-    color: '#e0e800',
+    color: 'white',
   },
 });
