@@ -3,11 +3,17 @@ import { Text, View, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import { setSearchValue } from '../Actions/searchBar';
+import { fetchRestaurantsRequest } from '../Actions/yelpRequests';
+import { makeQuery } from '../utils/makeQuery';
 
 class Header extends Component {
 
   searchUpdate(text) {
     this.props.setSearchValue(text);
+  }
+
+  searchSubmit() {
+    this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant' })}`);
   }
 
   render() {
@@ -23,6 +29,7 @@ class Header extends Component {
           <TextInput placeholder='Enter City'
                      style={styles.searchInput}
                      onChangeText={(text)=> this.searchUpdate(text)}
+                     onSubmitEditing={(submit) => this.searchSubmit(submit)}
           />
         </View>
       </View>
@@ -30,11 +37,11 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ activeTab, searchBar }) {
-  return { activeTab, searchBar };
+function mapStateToProps({ activeTab, searchBar, businesses }) {
+  return { activeTab, searchBar, businesses };
 }
 
-export default connect(mapStateToProps, { setSearchValue })(Header);
+export default connect(mapStateToProps, { setSearchValue, fetchRestaurantsRequest })(Header);
 
 const styles = StyleSheet.create({
   topBuffer: {

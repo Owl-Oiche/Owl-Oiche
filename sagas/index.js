@@ -9,8 +9,9 @@ import { FETCH_RESTAURANTS_REQUEST,
 function* fetchRestaurantsSaga({ payload }) {
   try {
     const restaurants = yield call(fetchRestaurants, payload);
+    yield put({ type: FETCH_RESTAURANTS_SUCCESS, payload: restaurants });
   } catch (e) {
-
+    yield put({ type: FETCH_RESTAURANTS_FAILURE, payload: e.message });
   }
 }
 
