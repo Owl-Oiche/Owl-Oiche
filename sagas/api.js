@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function fetchRestaurants(url) {
+export function fetchYelpData(url) {
   return axios.get(url)
   .then(response => response.data)
   .catch(error => {
