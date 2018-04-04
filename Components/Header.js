@@ -55,6 +55,7 @@ function mapStateToProps({ activeTab, searchBar, businesses }) {
 }
 
 const actions = {
+  setSearchValue,
   fetchRestaurantsRequest,
   fetchPharmaciesRequest,
   fetchWifiSpotsRequest,
@@ -62,7 +63,7 @@ const actions = {
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
 };
-export default connect(mapStateToProps, { setSearchValue, actions })(Header);
+export default connect(mapStateToProps, actions)(Header);
 
 const styles = StyleSheet.create({
   topBuffer: {
