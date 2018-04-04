@@ -21,10 +21,10 @@ class Tabs extends Component {
         <FlatList
           horizontal={true}
           data={[
-          { title: 1, key: 'item1' },
-          { title: 2, key: 'item2' },
-          { title: 3, key: 'item3' },
-          { title: 4, key: 'item4' },
+          { title: 'Restaurants', key: 'item1' },
+          { title: 'Pharmacies', key: 'item2' },
+          { title: 'Wifi', key: 'item3' },
+          { title: 'Miscellaneous', key: 'item4' },
           ]}
           renderItem={({ item }) => (
             item.title === this.props.activeTab ? (
