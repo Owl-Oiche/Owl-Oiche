@@ -3,7 +3,15 @@ import { Text, View, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import { setSearchValue } from '../Actions/searchBar';
-import { fetchRestaurantsRequest } from '../Actions/yelpRequests';
+import {
+  fetchRestaurantsRequest,
+  fetchPharmaciesRequest,
+  fetchWifiSpotsRequest,
+  fetchGasStationsRequest,
+  fetchGroceriesRequest,
+  fetchLaundromatsRequest,
+} from '../Actions/yelpRequests';
+
 import { makeQuery } from '../utils/makeQuery';
 
 class Header extends Component {
@@ -14,6 +22,11 @@ class Header extends Component {
 
   searchSubmit() {
     this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant' })}`);
+    this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy' })}`);
+    this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi' })}`);
+    this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas' })}`);
+    this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery' })}`);
+    this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundery' })}`);
   }
 
   render() {
@@ -41,7 +54,15 @@ function mapStateToProps({ activeTab, searchBar, businesses }) {
   return { activeTab, searchBar, businesses };
 }
 
-export default connect(mapStateToProps, { setSearchValue, fetchRestaurantsRequest })(Header);
+const actions = {
+  fetchRestaurantsRequest,
+  fetchPharmaciesRequest,
+  fetchWifiSpotsRequest,
+  fetchGasStationsRequest,
+  fetchGroceriesRequest,
+  fetchLaundromatsRequest,
+};
+export default connect(mapStateToProps, { setSearchValue, actions })(Header);
 
 const styles = StyleSheet.create({
   topBuffer: {
