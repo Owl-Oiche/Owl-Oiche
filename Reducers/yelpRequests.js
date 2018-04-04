@@ -37,7 +37,7 @@ export default function(state=initialState, action) {
       return { ...state, error: action.payload };
     case FETCH_WIFI_SPOTS_SUCCESS:
       return { ...state, wifiSpots: action.payload };
-    case FETCH_WIFISPOTS_FAILURE:
+    case FETCH_WIFI_SPOTS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_GAS_SUCCESS:
       return { ...state, misc: { gasStations: action.payload } };

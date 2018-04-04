@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { fetchYelpData } from './api';
 import { FETCH_RESTAURANTS_REQUEST,
@@ -41,7 +41,7 @@ function* fetchPharmaciesSaga({ payload }) {
 
 function* fetchWifiSpotsSaga({ payload }) {
   try {
-    const wifi = yield call(fetchRestaurants, payload);
+    const wifi = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_WIFI_SPOTS_SUCCESS, payload: wifi });
   } catch (e) {
     yield put({ type: FETCH_WIFI_SPOTS_FAILURE, payload: e.message });
@@ -50,7 +50,7 @@ function* fetchWifiSpotsSaga({ payload }) {
 
 function* fetchGasSaga({ payload }) {
   try {
-    const gas = yield call(fetchRestaurants, payload);
+    const gas = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_GAS_SUCCESS, payload: gas });
   } catch (e) {
     yield put({ type: FETCH_GAS_FAILURE, payload: e.message });
@@ -59,7 +59,7 @@ function* fetchGasSaga({ payload }) {
 
 function* fetchGroceriesSaga({ payload }) {
   try {
-    const groceries = yield call(fetchRestaurants, payload);
+    const groceries = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_GROCERIES_SUCCESS, payload: groceries });
   } catch (e) {
     yield put({ type: FETCH_GROCERIES_FAILURE, payload: e.message });
@@ -68,7 +68,7 @@ function* fetchGroceriesSaga({ payload }) {
 
 function* fetchLaundromatsSaga({ payload }) {
   try {
-    const laundromats = yield call(fetchRestaurants, payload);
+    const laundromats = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_LAUNDROMATS_SUCCESS, payload: laundromats });
   } catch (e) {
     yield put({ type: FETCH_LAUNDROMATS_FAILURE, payload: e.message });
@@ -76,12 +76,12 @@ function* fetchLaundromatsSaga({ payload }) {
 }
 
 function* mySaga() {
-  yield takeLatest(FETCH_RESTAURANTS_REQUEST, fetchRestaurantsSaga);
-  yield takeLatest(FETCH_PHARMACIES_REQUEST, fetchPharmaciesSaga);
-  yield takeLatest(FETCH_WIFI_SPOTS_REQUEST, fetchWifiSpotsSaga);
-  yield takeLatest(FETCH_GAS_REQUEST, fetchGasSaga);
-  yield takeLatest(FETCH_GROCERIES_REQUEST, fetchGroceriesSaga);
-  yield takeLatest(FETCH_LAUNDROMATS_REQUEST, fetchLaundromatsSaga);
+  yield takeEvery(FETCH_RESTAURANTS_REQUEST, fetchRestaurantsSaga);
+  yield takeEvery(FETCH_PHARMACIES_REQUEST, fetchPharmaciesSaga);
+  yield takeEvery(FETCH_WIFI_SPOTS_REQUEST, fetchWifiSpotsSaga);
+  yield takeEvery(FETCH_GAS_REQUEST, fetchGasSaga);
+  yield takeEvery(FETCH_GROCERIES_REQUEST, fetchGroceriesSaga);
+  yield takeEvery(FETCH_LAUNDROMATS_REQUEST, fetchLaundromatsSaga);
 }
 
 export default mySaga;

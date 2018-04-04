@@ -26,35 +26,35 @@ export function fetchRestaurantsRequest(url) {
 
 export function fetchPharmaciesRequest(url) {
   return {
-    type: FETCH_RESTAURANTS_REQUEST,
+    type: FETCH_PHARMACIES_REQUEST,
     payload: url,
   };
 };
 
 export function fetchWifiSpotsRequest(url) {
   return {
-    type: FETCH_RESTAURANTS_REQUEST,
+    type: FETCH_WIFI_SPOTS_REQUEST,
     payload: url,
   };
 };
 
 export function fetchGasStationsRequest(url) {
   return {
-    type: FETCH_RESTAURANTS_REQUEST,
+    type: FETCH_GAS_REQUEST,
     payload: url,
   };
 };
 
 export function fetchGroceriesRequest(url) {
   return {
-    type: FETCH_RESTAURANTS_REQUEST,
+    type: FETCH_GROCERIES_REQUEST,
     payload: url,
   };
 };
 
 export function fetchLaundromatsRequest(url) {
   return {
-    type: FETCH_RESTAURANTS_REQUEST,
+    type: FETCH_LAUNDROMATS_REQUEST,
     payload: url,
   };
 };

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
+import shuffle from 'lodash.shuffle';
 
+import BusinessList from './BusinessList';
 import { setSearchValue } from '../Actions/searchBar';
 import {
   fetchRestaurantsRequest,
@@ -26,10 +28,30 @@ class Header extends Component {
     this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi' })}`);
     this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas' })}`);
     this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery' })}`);
-    this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundery' })}`);
+    this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry' })}`);
+  }
+
+  decideBusinessesToDisplay() {
+    if (this.props.activeTab === 'Restaurants') {
+      return this.props.businesses.restaurants;
+    }
+
+    if (this.props.activeTab === 'Pharmacies') {
+      return this.props.businesses.pharmacies;
+    }
+
+    if (this.props.activeTab === 'Wifi') {
+      return this.props.businesses.wifiSpots;
+    }
+
+    else {
+      let misc = this.props.businesses.misc;
+      return shuffle(misc.gasStations.concat(misc.groceries, misc.laundromats));
+    }
   }
 
   render() {
+    const businesses = this.decideBusinessesToDisplay();
     return (
       <View>
         <View style={styles.topBuffer}>
@@ -45,6 +67,11 @@ class Header extends Component {
                      onSubmitEditing={(submit) => this.searchSubmit(submit)}
           />
         </View>
+        { this.props.businesses.restaurants.length > 0 ? (
+          <BusinessList businesses={businesses} />
+        ) : (
+          <Text>We need to know your location, please enter a city above.</Text>
+        )}
       </View>
     );
   }
@@ -55,6 +82,7 @@ function mapStateToProps({ activeTab, searchBar, businesses }) {
 }
 
 const actions = {
+  setSearchValue,
   fetchRestaurantsRequest,
   fetchPharmaciesRequest,
   fetchWifiSpotsRequest,
@@ -62,7 +90,7 @@ const actions = {
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
 };
-export default connect(mapStateToProps, { setSearchValue, actions })(Header);
+export default connect(mapStateToProps, actions)(Header);
 
 const styles = StyleSheet.create({
   topBuffer: {
