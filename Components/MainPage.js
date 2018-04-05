@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, Image, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import BusinessList from './BusinessList';
 import Header from './Header';
 import Tabs from './Tabs';
+import img from '../assets/nasa-43569-unsplash.jpg';
 
 class MainPage extends Component {
 
@@ -27,15 +28,21 @@ class MainPage extends Component {
   render() {
     const businesses = this.decideBusinessesToDisplay();
     return (
-      <View>
-        <Header />
-        <Tabs />
-        { this.props.businesses.restaurants.length > 0 ? (
-          <BusinessList businesses={businesses} />
-        ) : (
-          <Text>We need to know your location, please enter a city above.</Text>
-        )}
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ backgroundColor: '#744516' }}>
+          <Header />
+          <Tabs />
+          { this.props.businesses.restaurants.length > 0 ? (
+            <BusinessList businesses={businesses} />
+          ) : (
+            <View>
+              <Text style={{ color: 'white' }}>We need to know your location, please enter a city above.</Text>
+              <Image source={ img }
+                style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} />
+              </View>
+            )}
+          </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

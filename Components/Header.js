@@ -31,21 +31,21 @@ class Header extends Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.topBuffer}>
-          <View />
+        <View >
+          <View style={styles.topBuffer}>
+            <View />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.currentTab}>
+              {this.props.activeTab}
+            </Text>
+            <TextInput placeholder='Enter City'
+              style={styles.searchInput}
+              onChangeText={(text)=> this.searchUpdate(text)}
+              onSubmitEditing={(submit) => this.searchSubmit(submit)}
+            />
+          </View>
         </View>
-        <View style={styles.header}>
-          <Text style={styles.currentTab}>
-            {this.props.activeTab}
-          </Text>
-          <TextInput placeholder='Enter City'
-                     style={styles.searchInput}
-                     onChangeText={(text)=> this.searchUpdate(text)}
-                     onSubmitEditing={(submit) => this.searchSubmit(submit)}
-          />
-        </View>
-      </View>
     );
   }
 }
@@ -79,9 +79,10 @@ const styles = StyleSheet.create({
   },
   currentTab: {
     color: 'white',
-    width: .25 * Dimensions.get('window').width,
+    width: .33 * Dimensions.get('window').width,
   },
   searchInput: {
+    paddingLeft: 10,
     backgroundColor: '#d2d6d7',
     height: 0.05 * Dimensions.get('window').height,
     width: .45 * Dimensions.get('window').width,
