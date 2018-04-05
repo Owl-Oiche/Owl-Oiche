@@ -33,7 +33,7 @@ class Header extends Component {
     return (
       <View>
         <View style={styles.topBuffer}>
-          <View />
+        <View />
         </View>
         <View style={styles.header}>
           <Text style={styles.currentTab}>

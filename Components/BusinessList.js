@@ -5,7 +5,8 @@ import { Image,
          TouchableHighlight,
          FlatList,
          StyleSheet,
-         Dimensions, }
+         Dimensions,
+         Platform }
 from 'react-native';
 import { connect } from 'react-redux';
 
@@ -21,13 +22,20 @@ class BusinessList extends Component {
     return (
       <View>
         <FlatList
-          horizontal={true}
           data={this.props.businesses}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => this._onPress(item)} >
-              <View>
-                <Image source={{ uri: item.image_url }} />
+            <TouchableHighlight onPress={() => this._onPress(item)} style={styles.imageCard} >
+              <View style={styles.container}>
                 <Text>{item.name}</Text>
+                { item.image_url ? (
+                  <Image style={styles.images}
+                         source={{ uri: item.image_url }}
+                  />
+                ) : (
+                  <Image style={styles.images}
+                         source={{ uri: 'http://lequytong.com/Content/Images/no-image-02.png' }}
+                  />
+                ) }
               </View>
             </TouchableHighlight>
           )}
@@ -38,3 +46,20 @@ class BusinessList extends Component {
 }
 
 export default connect(null, { setOnDetailPage })(BusinessList);
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageCard: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderBottomColor: 'grey',
+  },
+  images: {
+    height: 0.25 * Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+  },
+});
