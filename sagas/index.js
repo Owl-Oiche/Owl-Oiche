@@ -21,6 +21,8 @@ import { FETCH_RESTAURANTS_REQUEST,
          FETCH_LAUNDROMATS_FAILURE
 } from '../Actions/yelpRequests';
 
+import { CREATE_MISC } from '../Actions/miscs';
+
 function* fetchRestaurantsSaga({ payload }) {
   try {
     const restaurants = yield call(fetchYelpData, payload);
@@ -70,6 +72,7 @@ function* fetchLaundromatsSaga({ payload }) {
   try {
     const laundromats = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_LAUNDROMATS_SUCCESS, payload: laundromats });
+    yield put({ type: CREATE_MISC })
   } catch (e) {
     yield put({ type: FETCH_LAUNDROMATS_FAILURE, payload: e.message });
   }

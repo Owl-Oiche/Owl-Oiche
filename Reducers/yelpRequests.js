@@ -1,3 +1,5 @@
+import shuffle from 'lodash.shuffle';
+
 import {
   FETCH_RESTAURANTS_SUCCESS,
   FETCH_RESTAURANTS_FAILURE,
@@ -13,16 +15,17 @@ import {
   FETCH_LAUNDROMATS_FAILURE,
 } from '../Actions/yelpRequests';
 
+import { CREATE_MISC } from '../Actions/miscs';
+
 const initialState = {
   restaurants: [],
   pharmacies: [],
   wifiSpots: [],
-  miscs: {
-    gasStations: [],
-    groceries: [],
-    laundromats: [],
-  },
+  gasStations: [],
+  groceries: [],
+  laundromats: [],
   error: null,
+  misc: [],
 };
 
 export default function(state=initialState, action) {
@@ -40,17 +43,21 @@ export default function(state=initialState, action) {
     case FETCH_WIFI_SPOTS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_GAS_SUCCESS:
-      return { ...state, misc: { gasStations: action.payload } };
+      return { ...state, gasStations: action.payload };
     case FETCH_GAS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_GROCERIES_SUCCESS:
-      return { ...state, misc: { groceries: action.payload } };
+      return { ...state, groceries: action.payload };
     case FETCH_GROCERIES_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_LAUNDROMATS_SUCCESS:
-      return { ...state, misc: { laundromats: action.payload } };
+      return { ...state, laundromats: action.payload };
     case FETCH_LAUNDROMATS_FAILURE:
       return { ...state, error: action.payload };
+    case CREATE_MISC:
+      const copiedState = { ...state };
+      const miscArr = shuffle(copiedState.gasStations.concat(copiedState.groceries, copiedState.laundromats))
+      return { ...state, misc: miscArr };
     default:
       return state;
   }

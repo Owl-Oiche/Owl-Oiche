@@ -6,8 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import mySaga from '../sagas';
 import reducers from '../Reducers';
-import Tabs from './Tabs';
-import Header from './Header';
+import MainPage from './MainPage';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,8 +24,7 @@ export default class App extends React.Component {
     return (
       <Provider store={ store }>
         <View>
-          <Header />
-          <Tabs />
+          <MainPage />
         </View>
       </Provider>
     );
