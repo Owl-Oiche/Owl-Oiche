@@ -40,7 +40,7 @@ class Header extends Component {
             <Image source={ img }
               style={styles.siteTitle} />
               <Text style={styles.siteTitleText}>
-                Owl Oích
+                Owl Oíche
               </Text>
           </View>
           <View style={styles.header}>
