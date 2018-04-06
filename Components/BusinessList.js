@@ -28,6 +28,7 @@ class BusinessList extends PureComponent {
         <FlatList
           data={this.props.businesses}
           keyExtractor={this._keyExtractor}
+          style={this.listStyles}
           renderItem={({ item }) => (
             <TouchableHighlight id={item.id} onPress={() => this._onPress(item)} style={styles.imageCard} >
               <View style={styles.container}>
@@ -53,6 +54,9 @@ class BusinessList extends PureComponent {
 export default connect(null, { setOnDetailPage })(BusinessList);
 
 const styles = StyleSheet.create({
+  listStyles: {
+    height: Dimensions.get('window').height - 20,
+  },
   container: {
     marginBottom: 10,
     justifyContent: 'center',
