@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { setSearchValue } from '../Actions/searchBar';
+import img from '../assets/Owl-Oiche-logo.png';
 import {
   fetchRestaurantsRequest,
   fetchPharmaciesRequest,
@@ -34,6 +35,13 @@ class Header extends Component {
         <View >
           <View style={styles.topBuffer}>
             <View />
+          </View>
+          <View style={styles.header}>
+            <Image source={ img }
+              style={styles.siteTitle} />
+              <Text style={styles.siteTitleText}>
+                Owl Oích
+              </Text>
           </View>
           <View style={styles.header}>
             <Text style={styles.currentTab}>
@@ -69,6 +77,14 @@ const styles = StyleSheet.create({
   topBuffer: {
     backgroundColor: '#3b2133',
     paddingTop: 0.15 * Dimensions.get('window').height,
+  },
+  siteTitle: {
+    height: .10 * Dimensions.get('window').height,
+    width: .17 * Dimensions.get('window').width,
+  },
+  siteTitleText: {
+    color: 'white',
+    fontSize: 21,
   },
   header: {
     backgroundColor: '#3b2133',
