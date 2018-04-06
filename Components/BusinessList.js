@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image,
          Text,
          View,
@@ -12,10 +12,14 @@ import { connect } from 'react-redux';
 
 import { setOnDetailPage } from '../Actions/onDetailPage.js';
 
-class BusinessList extends Component {
+class BusinessList extends PureComponent {
 
   _onPress() {
     this.props.setOnDetailPage(true);
+  }
+
+  _keyExtractor(item, index) {
+    return item.id;
   }
 
   render() {
@@ -23,8 +27,9 @@ class BusinessList extends Component {
       <View>
         <FlatList
           data={this.props.businesses}
+          keyExtractor={this._keyExtractor}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => this._onPress(item)} style={styles.imageCard} >
+            <TouchableHighlight id={item.id} onPress={() => this._onPress(item)} style={styles.imageCard} >
               <View style={styles.container}>
                 <Text>{item.name}</Text>
                 { item.image_url ? (
