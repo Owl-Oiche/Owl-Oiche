@@ -28,11 +28,10 @@ class BusinessList extends PureComponent {
         <FlatList
           data={this.props.businesses}
           keyExtractor={this._keyExtractor}
-          style={this.listStyles}
           renderItem={({ item }) => (
             <TouchableHighlight id={item.id} onPress={() => this._onPress(item)} style={styles.imageCard} >
               <View style={styles.container}>
-                <Text>{item.name}</Text>
+                <Text style={styles.text}>{item.name}</Text>
                 { item.image_url ? (
                   <Image style={styles.images}
                          source={{ uri: item.image_url }}
@@ -53,10 +52,9 @@ class BusinessList extends PureComponent {
 
 export default connect(null, { setOnDetailPage })(BusinessList);
 
+const { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
-  listStyles: {
-    height: Dimensions.get('window').height - 20,
-  },
   container: {
     marginBottom: 10,
     justifyContent: 'center',
@@ -65,10 +63,14 @@ const styles = StyleSheet.create({
   imageCard: {
     borderStyle: 'solid',
     borderWidth: 1,
-    borderBottomColor: 'grey',
+    borderBottomColor: '#3b2133',
   },
   images: {
-    height: 0.25 * Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    height: 0.3 * height,
+    width: width,
+  },
+  text: {
+    color: 'white',
+    fontSize: height * 0.05,
   },
 });
