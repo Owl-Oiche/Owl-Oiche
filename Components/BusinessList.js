@@ -22,14 +22,31 @@ class BusinessList extends PureComponent {
     return item.id;
   }
 
+  renderSeparator() {
+    return (
+      <View style={styles.separator} />
+    );
+  }
+
+  renderFooter() {
+    return (
+      <View style={styles.footer} />
+    );
+  }
+
   render() {
     return (
       <View>
         <FlatList
           data={this.props.businesses}
           keyExtractor={this._keyExtractor}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListFooterComponent={this.renderFooter}
           renderItem={({ item }) => (
-            <TouchableHighlight id={item.id} onPress={() => this._onPress(item)} style={styles.imageCard} >
+            <TouchableHighlight
+              id={item.id}
+              onPress={() => this._onPress(item)}
+              underlayColor='#593510' >
               <View style={styles.container}>
                 <Text style={styles.text}>{item.name}</Text>
                 { item.image_url ? (
@@ -60,11 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  imageCard: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderBottomColor: '#3b2133',
-  },
   images: {
     height: 0.3 * height,
     width: width,
@@ -72,5 +84,15 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: height * 0.05,
+  },
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#CED0CE',
+  },
+  footer: {
+    paddingVertical: 20,
+    borderTopWidth: 1,
+    borderColor: '#CED0CE',
   },
 });
