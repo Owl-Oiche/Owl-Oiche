@@ -61,8 +61,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ activeTab, searchBar }) {
-  return { activeTab, searchBar };
+function mapStateToProps({ activeTab, searchBar, onDetailPage }) {
+  return { activeTab, searchBar, onDetailPage };
 }
 
 const actions = {

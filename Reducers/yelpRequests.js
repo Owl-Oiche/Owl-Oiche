@@ -56,7 +56,7 @@ export default function(state=initialState, action) {
       return { ...state, error: action.payload };
     case CREATE_MISC:
       const copiedState = { ...state };
-      const miscArr = shuffle(copiedState.gasStations.concat(copiedState.groceries, copiedState.laundromats))
+      const miscArr = shuffle(copiedState.gasStations.concat(copiedState.groceries, copiedState.laundromats));
       return { ...state, misc: miscArr };
     default:
       return state;

@@ -15,8 +15,8 @@ import { setOnDetailPage } from '../Actions/onDetailPage.js';
 
 class BusinessList extends PureComponent {
 
-  _onPress() {
-    this.props.setOnDetailPage(true);
+  _onPress(id) {
+    this.props.setOnDetailPage(id);
   }
 
   _keyExtractor(item, index) {
@@ -46,7 +46,7 @@ class BusinessList extends PureComponent {
           renderItem={({ item }) => (
             <TouchableHighlight
               id={item.id}
-              onPress={() => this._onPress(item)}
+              onPress={() => this._onPress(item.id)}
               underlayColor='#593510' >
               <View style={styles.container}>
                 <Text style={styles.text}>{item.name}</Text>

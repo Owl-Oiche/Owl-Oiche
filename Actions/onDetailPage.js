@@ -1,8 +1,8 @@
 export const SET_ON_DETAIL_PAGE = 'set_on_detail_page';
 
-export function setOnDetailPage(condition) {
+export function setOnDetailPage(id) {
   return {
-    payload: condition,
+    payload: id,
     type: SET_ON_DETAIL_PAGE,
   };
 };
