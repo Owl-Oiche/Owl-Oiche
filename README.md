@@ -7,7 +7,7 @@ This is an app built with react-native and redux. Using the Yelp API we are crea
 ## Specifications
 
 A user should be able to:
-- [ ] decide to give permssion for geo location. Or do a manual search in search bar
+- [ ] decide to give permission for geo location. Or do a manual search in search bar
 - [ ] toggle between main topics and misc.
 - [ ] return to home page from anywhere on app
 
@@ -17,7 +17,7 @@ A user should be able to:
 - [x] create wireframes using balsamiq
 - [x] compartmentalize for the components. aka compomentalize
 - [ ] organize components verses containers.
-- [ ] create redux store
+- [x] create redux store
 - [ ] create containers
 - [ ] create components
 - [ ] styling with stylesheet
