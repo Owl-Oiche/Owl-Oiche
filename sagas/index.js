@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { fetchYelpData } from './api';
+import { IS_LOADING } from '../Actions/isLoading';
 import { FETCH_RESTAURANTS_REQUEST,
          FETCH_RESTAURANTS_SUCCESS,
          FETCH_RESTAURANTS_FAILURE,
@@ -72,7 +73,8 @@ function* fetchLaundromatsSaga({ payload }) {
   try {
     const laundromats = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_LAUNDROMATS_SUCCESS, payload: laundromats });
-    yield put({ type: CREATE_MISC })
+    yield put({ type: CREATE_MISC });
+    yield put({ type: IS_LOADING });
   } catch (e) {
     yield put({ type: FETCH_LAUNDROMATS_FAILURE, payload: e.message });
   }

@@ -3,6 +3,7 @@ import { Text, View, TextInput, StyleSheet, Dimensions, Image } from 'react-nati
 import { connect } from 'react-redux';
 
 import { setSearchValue } from '../Actions/searchBar';
+import { isLoading } from '../Actions/isLoading';
 import img from '../assets/Owl-Oiche-logo.png';
 import {
   fetchRestaurantsRequest,
@@ -22,6 +23,7 @@ class Header extends Component {
   }
 
   searchSubmit() {
+    this.props.isLoading();
     this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant' })}`);
     this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy' })}`);
     this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi' })}`);
@@ -51,6 +53,7 @@ class Header extends Component {
               style={styles.searchInput}
               onChangeText={(text)=> this.searchUpdate(text)}
               onSubmitEditing={(submit) => this.searchSubmit(submit)}
+              spellCheck={true}
             />
           </View>
         </View>
@@ -70,6 +73,7 @@ const actions = {
   fetchGasStationsRequest,
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
+  isLoading,
 };
 export default connect(mapStateToProps, actions)(Header);
 
