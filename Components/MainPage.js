@@ -5,6 +5,7 @@ import { View, Text, Image, Dimensions, TouchableWithoutFeedback, Keyboard, Acti
 import BusinessList from './BusinessList';
 import Header from './Header';
 import Tabs from './Tabs';
+import DetailPage from './DetailPage';
 import img from '../assets/nasa-43569-unsplash.jpg';
 
 class MainPage extends Component {
@@ -35,15 +36,19 @@ class MainPage extends Component {
           { this.props.isLoading ? (
             <ActivityIndicator size='large' color='white' />
           ) : (
-             this.props.businesses.restaurants.length > 0 ? (
-              <BusinessList businesses={businesses} />
-            ) : (
-              <View>
-                <Text style={{ color: 'white' }}>We need to know your location, please enter a city above.</Text>
-                <Image source={ img }
-                  style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} />
-              </View>
-            )
+             this.props.onDetailPage.onDetailPage ? (
+               <DetailPage />
+             ) : (
+               this.props.businesses.restaurants.length > 0 ? (
+                 <BusinessList businesses={businesses} />
+               ) : (
+                 <View>
+                   <Text style={{ color: 'white' }}>We need to know your location, please enter a city above.</Text>
+                   <Image source={ img }
+                     style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} />
+                   </View>
+                 )
+             )
           )}
         </View>
       </TouchableWithoutFeedback>
@@ -51,8 +56,8 @@ class MainPage extends Component {
   }
 }
 
-function mapStateToProps({ businesses, activeTab, isLoading }) {
-  return { businesses, activeTab, isLoading };
+function mapStateToProps({ businesses, activeTab, isLoading, onDetailPage }) {
+  return { businesses, activeTab, isLoading, onDetailPage };
 }
 
 export default connect(mapStateToProps)(MainPage);
