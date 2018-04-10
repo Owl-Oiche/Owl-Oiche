@@ -51,37 +51,58 @@ class DetailPage extends Component {
 
       hoursToDisplay.start = parseInt(hoursToDisplay.start);
       hoursToDisplay.end = parseInt(hoursToDisplay.end);
+
       if (hoursToDisplay.start >= 1300) {
         hoursToDisplay.start = hoursToDisplay.start - 1200;
-      };
-
-      if (String(hoursToDisplay.start).length === 2) {
-        hoursToDisplay.start = '12' + String(hoursToDisplay.start);
+        hoursToDisplay.start = String(hoursToDisplay.start) + ' PM';
+      } else {
+        hoursToDisplay.start = String(hoursToDisplay.start) + ' AM';
       }
 
       if (hoursToDisplay.end >= 1300) {
         hoursToDisplay.end = hoursToDisplay.end - 1200;
-      };
+        hoursToDisplay.end = String(hoursToDisplay.end) + ' PM';
+      } else {
+        hoursToDisplay.end = String(hoursToDisplay.end) + ' AM';
+      }
+
+      if (String(hoursToDisplay.start).length === 2) {
+        hoursToDisplay.start = '12' + String(hoursToDisplay.start) + ' AM';
+      }
 
       if (String(hoursToDisplay.end).length === 2) {
-        hoursToDisplay.end = '12' + String(hoursToDisplay.end);
+        hoursToDisplay.end = '12' + String(hoursToDisplay.end) + ' AM';
       }
-      console.log('hoursToDisplay ----> ', hoursToDisplay);
-      return `${String(hoursToDisplay.start).slice(0, 2)}:${String(hoursToDisplay.start).slice(2)} AM - ${String(hoursToDisplay.end).slice(0, 2)}:${String(hoursToDisplay.end).slice(2)} PM`;
+
+      if (hoursToDisplay.start.length === 6) {
+        hoursToDisplay.start = hoursToDisplay.start.slice(0, 1) + ':' + hoursToDisplay.start.slice(1);
+      } else {
+        hoursToDisplay.start = hoursToDisplay.start.slice(0, 2) + ':' + hoursToDisplay.start.slice(2);
+      }
+
+      if (hoursToDisplay.end.length === 6) {
+        hoursToDisplay.end = hoursToDisplay.end.slice(0, 1) + ':' + hoursToDisplay.end.slice(1);
+      } else {
+        hoursToDisplay.end = hoursToDisplay.end.slice(0, 2) + ':' + hoursToDisplay.end.slice(2);
+      }
+
+      return hoursToDisplay.start + ' - ' + hoursToDisplay.end;
     } else {
-      return 'Please wait a moment while we see what hours the business is open';
+      return 'One Moment....';
     }
   }
 
   render() {
     const business = this.decideBusinessToDisplay();
     return (
-      <View>
+      <View style={styles.container}>
         <Image source={{ uri: business.image_url }} style={styles.image} />
-        <Text>{business.name}</Text>
-        <Text>{business.display_phone}</Text>
-        <Text>{business.location.display_address[0]}</Text>
-        <Text>{this.renderHours()}</Text>
+        <Text style={styles.text}>{business.name}</Text>
+        <Text style={styles.text}>{business.display_phone}</Text>
+        <Text style={styles.text}>{business.location.display_address[0]}</Text>
+        <Text style={styles.text}>{this.renderHours()}</Text>
+        <Text style={styles.text}>{business.categories[0].title}</Text>
+        <View style={ styles.footer} />
       </View>
     );
   }
@@ -95,8 +116,21 @@ export default connect(mapStateToProps, { updateBusiness })(DetailPage);
 
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: 'white',
+  },
   image: {
-    height: height * 0.50,
-    width: width * 0.50,
+    marginTop: 20,
+    marginBottom: 20,
+    height: height * 0.30,
+    width: width,
+  },
+  footer: {
+    paddingVertical: 400,
+    backgroundColor: '#CED0CE',
   },
 });

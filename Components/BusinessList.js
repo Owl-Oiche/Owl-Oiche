@@ -29,11 +29,11 @@ class BusinessList extends PureComponent {
     );
   }
 
-  renderFooter() {
+  renderFooter = () => {
     return (
       <View style={styles.footer} />
     );
-  }
+  };
 
   render() {
     return (
@@ -64,6 +64,7 @@ class BusinessList extends PureComponent {
           )}
         />
       </View>
+
     );
   }
 }
@@ -92,8 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#CED0CE',
   },
   footer: {
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderColor: '#CED0CE',
+    paddingVertical: height * .67,
+    backgroundColor: '#CED0CE',
   },
 });
