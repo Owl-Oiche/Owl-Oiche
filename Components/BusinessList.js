@@ -11,7 +11,7 @@ import { Image,
 from 'react-native';
 import { connect } from 'react-redux';
 
-import { setOnDetailPage } from '../Actions/onDetailPage.js';
+import { setOnDetailPage } from '../Actions/onDetailPage';
 
 class BusinessList extends PureComponent {
 

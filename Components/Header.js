@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Dimensions, Image } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Dimensions, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 
 import { setSearchValue } from '../Actions/searchBar';
@@ -13,6 +13,8 @@ import {
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
 } from '../Actions/yelpRequests';
+import { setOnDetailPage } from '../Actions/onDetailPage';
+import { Entypo } from '@expo/vector-icons';
 
 import { makeQuery } from '../utils/makeQuery';
 
@@ -32,8 +34,13 @@ class Header extends Component {
     this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry' })}`);
   }
 
+  handleArrowClick() {
+    this.props.setOnDetailPage(-1);
+  }
+
   render() {
-    return (
+    if (this.props.onDetailPage.onDetailPage) {
+      return (
         <View >
           <View style={styles.topBuffer}>
             <View />
@@ -44,20 +51,44 @@ class Header extends Component {
               <Text style={styles.siteTitleText}>
                 Owl Oíche
               </Text>
+            </View>
+            <View style={styles.header}>
+              <TouchableHighlight onPress={() => this.handleArrowClick()} underlayColor='#23131e'>
+                <Entypo name='arrow-bold-left' size={32} color='white'/>
+              </TouchableHighlight>
+              <Text style={styles.currentTab}>
+                {this.props.activeTab}
+              </Text>
+            </View>
+          </View>
+        );
+    } else {
+      return (
+        <View >
+          <View style={styles.topBuffer}>
+            <View />
           </View>
           <View style={styles.header}>
-            <Text style={styles.currentTab}>
-              {this.props.activeTab}
-            </Text>
-            <TextInput placeholder='Enter City'
-              style={styles.searchInput}
-              onChangeText={(text)=> this.searchUpdate(text)}
-              onSubmitEditing={(submit) => this.searchSubmit(submit)}
-              spellCheck={true}
-            />
+            <Image source={ img }
+              style={styles.siteTitle} />
+              <Text style={styles.siteTitleText}>
+                Owl Oíche
+              </Text>
+            </View>
+            <View style={styles.header}>
+              <Text style={styles.currentTab}>
+                {this.props.activeTab}
+              </Text>
+              <TextInput placeholder='Enter City'
+                style={styles.searchInput}
+                onChangeText={(text)=> this.searchUpdate(text)}
+                onSubmitEditing={(submit) => this.searchSubmit(submit)}
+                spellCheck={true}
+              />
+            </View>
           </View>
-        </View>
-    );
+        );
+    }
   }
 }
 
@@ -74,6 +105,7 @@ const actions = {
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
   isLoading,
+  setOnDetailPage,
 };
 export default connect(mapStateToProps, actions)(Header);
 

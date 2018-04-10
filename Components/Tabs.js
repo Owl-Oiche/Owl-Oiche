@@ -10,10 +10,15 @@ import { connect } from 'react-redux';
 import { Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 import { setActiveTab } from '../Actions/activeTabs';
+import { setOnDetailPage } from '../Actions/onDetailPage';
 
 class Tabs extends Component {
 
   _onPress(event) {
+    if (this.props.onDetailPage.onDetailPage) {
+      this.props.setOnDetailPage(-1);
+    }
+
     this.props.setActiveTab(event.title);
   }
 
@@ -61,11 +66,11 @@ class Tabs extends Component {
   }
 }
 
-function mapStateToProps({ activeTab }) {
-  return { activeTab };
+function mapStateToProps({ activeTab, onDetailPage }) {
+  return { activeTab, onDetailPage };
 }
 
-export default connect(mapStateToProps, { setActiveTab })(Tabs);
+export default connect(mapStateToProps, { setActiveTab, setOnDetailPage })(Tabs);
 
 const styles = StyleSheet.create({
   notSelected: {
