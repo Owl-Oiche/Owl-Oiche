@@ -1,7 +1,8 @@
 import React, { Component } from 'React';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, Text, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import call from 'react-native-phone-call';
 
 import { updateBusiness } from '../Actions/updateBusiness';
 
@@ -99,14 +100,24 @@ class DetailPage extends Component {
     }
   }
 
+  handlePhoneClick() {
+    const phoneNumber = this.decideBusinessToDisplay().display_phone;
+    const args = { number: phoneNumber, promt: true };
+    call(args).catch(console.log);
+  }
+
   render() {
     const business = this.decideBusinessToDisplay();
     return (
       <View style={styles.container}>
         <Image source={{ uri: business.image_url }} style={styles.image} />
         <Text style={styles.text}>{business.name}</Text>
-        <Text style={styles.text}>{business.display_phone}</Text>
-        <Text style={styles.text}>{business.location.display_address[0]}</Text>
+        <TouchableWithoutFeedback onPress={() => this.handlePhoneClick()}>
+          <View>
+           <Text style={{ color: '#0000EE', textDecorationLine: 'underline', marginBottom: 5 }}>{business.display_phone}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <Text style={{ color: 'white' }}>{business.location.display_address[0]}</Text>
         <Text style={styles.text}>{business.location.display_address[1]}</Text>
         <Text style={styles.text}>{this.renderHours()}</Text>
         <Text style={styles.text}>{business.categories[0].title}</Text>
@@ -130,15 +141,16 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
+    marginBottom: 5,
   },
   image: {
+    height: height * 0.30,
     marginTop: 20,
     marginBottom: 20,
-    height: height * 0.30,
     width: width,
   },
   footer: {
-    paddingVertical: 400,
-    backgroundColor: '#CED0CE',
+    backgroundColor: '#744516',
+    paddingVertical: 700,
   },
 });

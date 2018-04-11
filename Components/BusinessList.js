@@ -75,9 +75,9 @@ const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
   },
   images: {
     height: 0.3 * height,
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
     fontSize: height * 0.05,
   },
   separator: {
+    backgroundColor: '#CED0CE',
     height: 1,
     width: '100%',
-    backgroundColor: '#CED0CE',
   },
   footer: {
+    backgroundColor: '#744516',
     paddingVertical: height * .67,
-    backgroundColor: '#CED0CE',
   },
 });
