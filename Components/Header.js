@@ -1,52 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, Dimensions, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { setSearchValue } from '../Actions/searchBar';
 import { isLoading } from '../Actions/isLoading';
 import img from '../assets/Owl-Oiche-logo.png';
-import {
-  fetchRestaurantsRequest,
-  fetchPharmaciesRequest,
-  fetchWifiSpotsRequest,
-  fetchGasStationsRequest,
-  fetchGroceriesRequest,
-  fetchLaundromatsRequest,
-} from '../Actions/yelpRequests';
 import { setOnDetailPage } from '../Actions/onDetailPage';
 import { Entypo } from '@expo/vector-icons';
-
-import { makeQuery } from '../utils/makeQuery';
 
 class Header extends Component {
 
   searchUpdate(text) {
     this.props.setSearchValue(text);
-  }
-
-  searchSubmit() {
-    const hour = moment().hour();
-    this.props.isLoading();
-    if (hour >= 0 && hour <= 4) {
-      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_now: true })}`);
-      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_now: true })}`);
-      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_now: true })}`);
-      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_now: true })}`);
-      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_now: true })}`);
-      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_now: true })}`);
-    } else {
-      const year = moment().year();
-      const month = moment().month();
-      const day = moment().date();
-      const unixTime = new Date(year, month, day + 1, 0, 15).getTime() / 1000;
-      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_at: unixTime })}`);
-      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_at: unixTime })}`);
-      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_at: unixTime })}`);
-      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_at: unixTime })}`);
-      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_at: unixTime })}`);
-      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_at: unixTime })}`);
-    }
   }
 
   handleArrowClick() {
@@ -97,8 +62,9 @@ class Header extends Component {
               <TextInput placeholder='Enter City'
                 style={styles.searchInput}
                 onChangeText={(text)=> this.searchUpdate(text)}
-                onSubmitEditing={(submit) => this.searchSubmit(submit)}
+                onSubmitEditing={(submit) => this.props.searchSubmit(submit)}
                 spellCheck={true}
+                value={this.props.searchBar}
               />
             </View>
           </View>
@@ -113,13 +79,6 @@ function mapStateToProps({ activeTab, searchBar, onDetailPage }) {
 
 const actions = {
   setSearchValue,
-  fetchRestaurantsRequest,
-  fetchPharmaciesRequest,
-  fetchWifiSpotsRequest,
-  fetchGasStationsRequest,
-  fetchGroceriesRequest,
-  fetchLaundromatsRequest,
-  isLoading,
   setOnDetailPage,
 };
 export default connect(mapStateToProps, actions)(Header);
