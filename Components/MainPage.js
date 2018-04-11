@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, Dimensions, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
+import moment from 'moment';
+import { setLoading } from '../Actions/isLoading';
 
+import { makeQuery } from '../utils/makeQuery';
 import BusinessList from './BusinessList';
 import Header from './Header';
 import Tabs from './Tabs';
 import DetailPage from './DetailPage';
 import img from '../assets/nasa-43569-unsplash.jpg';
+import {
+  fetchRestaurantsRequest,
+  fetchPharmaciesRequest,
+  fetchWifiSpotsRequest,
+  fetchGasStationsRequest,
+  fetchGroceriesRequest,
+  fetchLaundromatsRequest,
+} from '../Actions/yelpRequests';
 
 class MainPage extends Component {
 
@@ -26,12 +37,36 @@ class MainPage extends Component {
     }
   }
 
+  searchSubmit() {
+    const hour = moment().hour();
+    this.props.setLoading();
+    if (hour >= 0 && hour <= 4) {
+      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_now: true })}`);
+      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_now: true })}`);
+      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_now: true })}`);
+      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_now: true })}`);
+      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_now: true })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_now: true })}`);
+    } else {
+      const year = moment().year();
+      const month = moment().month();
+      const day = moment().date();
+      const unixTime = new Date(year, month, day + 1, 0, 15).getTime() / 1000;
+      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_at: unixTime })}`);
+      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_at: unixTime })}`);
+      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_at: unixTime })}`);
+      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_at: unixTime })}`);
+      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_at: unixTime })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_at: unixTime })}`);
+    }
+  }
+
   render() {
     const businesses = this.decideBusinessesToDisplay();
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={{ backgroundColor: '#744516' }}>
-          <Header />
+          <Header searchSubmit={() => this.searchSubmit()} />
           <Tabs />
           { this.props.isLoading ? (
             <ActivityIndicator size='large' color='white' />
@@ -40,14 +75,14 @@ class MainPage extends Component {
                <DetailPage />
              ) : (
                this.props.businesses.restaurants.length > 0 ? (
-                 <BusinessList businesses={businesses} />
+                 <BusinessList businesses={businesses} pullToRefresh={() => this.searchSubmit()} />
                ) : (
                  <View>
                    <Text style={{ color: 'white' }}>We need to know your location, please enter a city above.</Text>
                    <Image source={ img }
                      style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} />
-                   </View>
-                 )
+                </View>
+                )
              )
           )}
         </View>
@@ -56,8 +91,18 @@ class MainPage extends Component {
   }
 }
 
-function mapStateToProps({ businesses, activeTab, isLoading, onDetailPage }) {
-  return { businesses, activeTab, isLoading, onDetailPage };
+function mapStateToProps({ businesses, activeTab, isLoading, onDetailPage, searchBar }) {
+  return { businesses, activeTab, isLoading, onDetailPage, searchBar };
 }
 
-export default connect(mapStateToProps)(MainPage);
+const actions = {
+  fetchRestaurantsRequest,
+  fetchPharmaciesRequest,
+  fetchWifiSpotsRequest,
+  fetchGasStationsRequest,
+  fetchGroceriesRequest,
+  fetchLaundromatsRequest,
+  setLoading,
+};
+
+export default connect(mapStateToProps, actions)(MainPage);

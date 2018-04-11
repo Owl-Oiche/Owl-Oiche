@@ -14,6 +14,12 @@ import { connect } from 'react-redux';
 import { setOnDetailPage } from '../Actions/onDetailPage';
 
 class BusinessList extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
 
   _onPress(id) {
     this.props.setOnDetailPage(id);
@@ -29,11 +35,22 @@ class BusinessList extends PureComponent {
     );
   }
 
-  renderFooter = () => {
+  renderFooter() {
     return (
       <View style={styles.footer} />
     );
   };
+
+  handleRefresh() {
+    this.setState({
+      refreshing: true,
+    }, () => {
+      this.props.pullToRefresh();
+      this.setState({
+        refreshing: false,
+      });
+    });
+  }
 
   render() {
     return (
@@ -42,7 +59,9 @@ class BusinessList extends PureComponent {
           data={this.props.businesses}
           keyExtractor={this._keyExtractor}
           ItemSeparatorComponent={this.renderSeparator}
-          ListFooterComponent={this.renderFooter}
+          ListFooterComponent={() => this.renderFooter()}
+          refreshing={this.state.refreshing}
+          onRefresh={() => this.handleRefresh()}
           renderItem={({ item }) => (
             <TouchableHighlight
               id={item.id}
