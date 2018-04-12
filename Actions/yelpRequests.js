@@ -16,7 +16,6 @@ export const FETCH_GROCERIES_FAILURE = 'fetch_groceries_failure';
 export const FETCH_LAUNDROMATS_REQUEST = 'fetch_laundromats_request';
 export const FETCH_LAUNDROMATS_SUCCESS = 'fetch_laundromats_success';
 export const FETCH_LAUNDROMATS_FAILURE = 'fetch_laundromats_failure';
-export const FETCH_LAUNDROMATS_WITHOUT_LOADING_REQUEST = 'fetch_laundromats_without_loading_request';
 
 export function fetchRestaurantsRequest(url) {
   return {
@@ -56,13 +55,6 @@ export function fetchGroceriesRequest(url) {
 export function fetchLaundromatsRequest(url) {
   return {
     type: FETCH_LAUNDROMATS_REQUEST,
-    payload: url,
-  };
-};
-
-export function fetchLaundromatsRequestWithoutLoading(url) {
-  return {
-    type: FETCH_LAUNDROMATS_WITHOUT_LOADING_REQUEST,
     payload: url,
   };
 };

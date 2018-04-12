@@ -17,7 +17,6 @@ import {
   fetchGasStationsRequest,
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
-  fetchLaundromatsRequestWithoutLoading,
 } from '../Actions/yelpRequests';
 
 class MainPage extends Component {
@@ -46,7 +45,7 @@ class MainPage extends Component {
       this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_now: true, offset: this.props.offSetCount })}`);
       this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_now: true, offset: this.props.offSetCount })}`);
       this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchLaundromatsRequestWithoutLoading(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_now: true, offset: this.props.offSetCount })}`);
     } else {
       const year = moment().year();
       const month = moment().month();
@@ -57,12 +56,15 @@ class MainPage extends Component {
       this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_at: unixTime, offset: this.props.offSetCount })}`);
       this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_at: unixTime, offset: this.props.offSetCount })}`);
       this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchLaundromatsRequestWithoutLoading(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_at: unixTime, offset: this.props.offSetCount })}`);
     }
   }
 
   searchSubmit() {
-    this.props.setLoading();
+    if (this.props.businesses.restaurants.length === 0) {
+      this.props.setLoading(true);
+    }
+
     this.fetchBusinesses();
   }
 
@@ -109,7 +111,6 @@ const actions = {
   fetchGroceriesRequest,
   fetchLaundromatsRequest,
   setLoading,
-  fetchLaundromatsRequestWithoutLoading,
 };
 
 export default connect(mapStateToProps, actions)(MainPage);
