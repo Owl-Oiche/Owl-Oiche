@@ -31,27 +31,27 @@ const initialState = {
 export default function(state=initialState, action) {
   switch (action.type) {
     case FETCH_RESTAURANTS_SUCCESS:
-      return { ...state, restaurants: action.payload };
+      return { ...state, restaurants: state.restaurants.concat(action.payload) };
     case FETCH_RESTAURANTS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_PHARMACIES_SUCCESS:
-      return { ...state, pharmacies: action.payload };
+      return { ...state, pharmacies: state.pharmacies.concat(action.payload) };
     case FETCH_PHARMACIES_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_WIFI_SPOTS_SUCCESS:
-      return { ...state, wifiSpots: action.payload };
+      return { ...state, wifiSpots: state.wifiSpots.concat(action.payload) };
     case FETCH_WIFI_SPOTS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_GAS_SUCCESS:
-      return { ...state, gasStations: action.payload };
+      return { ...state, gasStations: state.gasStations.concat(action.payload) };
     case FETCH_GAS_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_GROCERIES_SUCCESS:
-      return { ...state, groceries: action.payload };
+      return { ...state, groceries: state.groceries.concat(action.payload) };
     case FETCH_GROCERIES_FAILURE:
       return { ...state, error: action.payload };
     case FETCH_LAUNDROMATS_SUCCESS:
-      return { ...state, laundromats: action.payload };
+      return { ...state, laundromats: state.laundromats.concat(action.payload) };
     case FETCH_LAUNDROMATS_FAILURE:
       return { ...state, error: action.payload };
     case CREATE_MISC:

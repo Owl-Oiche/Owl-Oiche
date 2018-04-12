@@ -5,6 +5,7 @@ import yelpRequests from './yelpRequests';
 import isLoading from './isLoading';
 import onDetailPage from './onDetailPage';
 import businessHours from './businessHours';
+import offSetCount from './offSetCount';
 
 const rootReducer = combineReducers({
   activeTab,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   businesses: yelpRequests,
   onDetailPage,
   businessHours,
+  offSetCount,
 });
 
 export default rootReducer;

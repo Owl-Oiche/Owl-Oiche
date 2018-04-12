@@ -1,7 +1,8 @@
 export const IS_LOADING = 'is_loading';
 
-export function setLoading() {
+export function setLoading(boolean) {
   return {
     type: IS_LOADING,
+    payload: boolean,
   };
 };
