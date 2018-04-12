@@ -12,6 +12,7 @@ from 'react-native';
 import { connect } from 'react-redux';
 
 import { setOnDetailPage } from '../Actions/onDetailPage';
+import { setCount } from '../Actions/offSetCount';
 
 class BusinessList extends PureComponent {
   constructor(props) {
@@ -39,17 +40,22 @@ class BusinessList extends PureComponent {
     return (
       <View style={styles.footer} />
     );
-  };
+  }
 
   handleRefresh() {
     this.setState({
       refreshing: true,
     }, () => {
-      this.props.pullToRefresh();
+      this.props.fetchData();
       this.setState({
         refreshing: false,
       });
     });
+  }
+
+  handleLoadMore() {
+    this.props.setCount();
+    this.props.fetchData();
   }
 
   render() {
@@ -62,6 +68,8 @@ class BusinessList extends PureComponent {
           ListFooterComponent={() => this.renderFooter()}
           refreshing={this.state.refreshing}
           onRefresh={() => this.handleRefresh()}
+          onEndReached={() => this.handleLoadMore()}
+          onEndThreshold={1000}
           renderItem={({ item }) => (
             <TouchableHighlight
               id={item.id}
@@ -88,7 +96,7 @@ class BusinessList extends PureComponent {
   }
 }
 
-export default connect(null, { setOnDetailPage })(BusinessList);
+export default connect(null, { setOnDetailPage, setCount })(BusinessList);
 
 const { height, width } = Dimensions.get('window');
 

@@ -19,7 +19,8 @@ import { FETCH_RESTAURANTS_REQUEST,
          FETCH_GROCERIES_FAILURE,
          FETCH_LAUNDROMATS_REQUEST,
          FETCH_LAUNDROMATS_SUCCESS,
-         FETCH_LAUNDROMATS_FAILURE
+         FETCH_LAUNDROMATS_FAILURE,
+         FETCH_LAUNDROMATS_WITHOUT_LOADING_REQUEST
 } from '../Actions/yelpRequests';
 
 import { CREATE_MISC } from '../Actions/miscs';
@@ -80,6 +81,16 @@ function* fetchLaundromatsSaga({ payload }) {
   }
 }
 
+function* fetchLaundromatsWithoutLoadingSaga({ payload }) {
+  try {
+    const laundromats = yield call(fetchYelpData, payload);
+    yield put({ type: FETCH_LAUNDROMATS_SUCCESS, payload: laundromats });
+    yield put({ type: CREATE_MISC });
+  } catch (e) {
+    yield put({ type: FETCH_LAUNDROMATS_FAILURE, payload: e.message });
+  }
+}
+
 function* mySaga() {
   yield takeEvery(FETCH_RESTAURANTS_REQUEST, fetchRestaurantsSaga);
   yield takeEvery(FETCH_PHARMACIES_REQUEST, fetchPharmaciesSaga);
@@ -87,6 +98,7 @@ function* mySaga() {
   yield takeEvery(FETCH_GAS_REQUEST, fetchGasSaga);
   yield takeEvery(FETCH_GROCERIES_REQUEST, fetchGroceriesSaga);
   yield takeEvery(FETCH_LAUNDROMATS_REQUEST, fetchLaundromatsSaga);
+  yield takeEvery(FETCH_LAUNDROMATS_WITHOUT_LOADING_REQUEST, fetchLaundromatsWithoutLoadingSaga);
 }
 
 export default mySaga;
