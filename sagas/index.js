@@ -21,6 +21,7 @@ import { FETCH_RESTAURANTS_REQUEST,
          FETCH_LAUNDROMATS_SUCCESS,
          FETCH_LAUNDROMATS_FAILURE,
 } from '../Actions/yelpRequests';
+import { OFF_SET_COUNT } from '../Actions/offSetCount';
 
 import { CREATE_MISC } from '../Actions/miscs';
 
@@ -74,6 +75,7 @@ function* fetchLaundromatsSaga({ payload }) {
     const laundromats = yield call(fetchYelpData, payload);
     yield put({ type: FETCH_LAUNDROMATS_SUCCESS, payload: laundromats });
     yield put({ type: CREATE_MISC });
+    yield put({ type: OFF_SET_COUNT });
     yield put({ type: IS_LOADING, payload: false });
   } catch (e) {
     yield put({ type: FETCH_LAUNDROMATS_FAILURE, payload: e.message });

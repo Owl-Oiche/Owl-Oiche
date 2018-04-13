@@ -69,7 +69,6 @@ class MainPage extends Component {
   }
 
   render() {
-    console.log("(ᗒᗣᗕ) (•̀o•́)ง this.props", this.props )
     const businesses = this.decideBusinessesToDisplay();
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
