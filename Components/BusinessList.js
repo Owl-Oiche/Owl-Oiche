@@ -12,7 +12,6 @@ from 'react-native';
 import { connect } from 'react-redux';
 
 import { setOnDetailPage } from '../Actions/onDetailPage';
-import { setCount } from '../Actions/offSetCount';
 
 class BusinessList extends PureComponent {
   constructor(props) {
@@ -24,10 +23,6 @@ class BusinessList extends PureComponent {
 
   _onPress(id) {
     this.props.setOnDetailPage(id);
-  }
-
-  _keyExtractor(item, index) {
-    return item.id;
   }
 
   renderSeparator() {
@@ -54,23 +49,23 @@ class BusinessList extends PureComponent {
   }
 
   handleLoadMore() {
-    this.props.setCount();
     this.props.fetchData();
   }
 
   render() {
+    console.log('This.props.businesses first item ----> ', this.props.businesses[0].name);
     return (
       <View>
         <FlatList
           data={this.props.businesses}
-          keyExtractor={this._keyExtractor}
+          keyExtractor={(item, index) => item + index}
           ItemSeparatorComponent={this.renderSeparator}
           ListFooterComponent={() => this.renderFooter()}
           refreshing={this.state.refreshing}
           onRefresh={() => this.handleRefresh()}
           onEndReached={() => this.handleLoadMore()}
-          onEndThreshold={1000}
-          renderItem={({ item }) => (
+          onEndThreshold={3000}
+          renderItem={({ item, index, section }) => (
             <TouchableHighlight
               id={item.id}
               onPress={() => this._onPress(item.id)}
@@ -96,7 +91,7 @@ class BusinessList extends PureComponent {
   }
 }
 
-export default connect(null, { setOnDetailPage, setCount })(BusinessList);
+export default connect(null, { setOnDetailPage })(BusinessList);
 
 const { height, width } = Dimensions.get('window');
 

@@ -12,7 +12,6 @@ class DetailPage extends Component {
     const businessId = this.props.onDetailPage.id;
     const businessDetail = business.filter(business => business.id === businessId)[0];
     if (businessDetail) {
-      console.log('I am not fetching data again');
       return;
     } else {
       return axios.get(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpIdResults?id=${businessId}`)
