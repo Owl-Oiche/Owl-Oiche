@@ -1,4 +1,4 @@
-
+![](https://imgur.com/J6tzLXh)
 # Welcome to Owl Oiche
 Soon to be deployed on iTunes App store and Google Play store!
 
@@ -43,7 +43,17 @@ To get started type a city in the search bar and chose a tab that interests you:
 You can switch tabs at any time and pull down to refresh. Tap on any business and you will be directed to the details page. From the details page just tap the arrow top left to go back to your search. Tap on a tab to search in that catagory.
 
 
-
 ## Licensing
 Licensed under the AGPL license. for mor info look at our license.md file. 
 We are using the [Yelp API](https://www.yelp.com/developers/documentation/v3) to fetch data.
+
+
+## Known Bugs
+- iOS pull to refresh
+- time at midnight is parsed incorrectly
+
+## Features comming soon!
+- Image caching
+- ask user for current location
+- authentication for reviews and rating
+- swipe to change tabs
