@@ -1,4 +1,4 @@
-[Imgur](https://i.imgur.com/J6tzLXh.png?1)
+![](https://i.imgur.com/J6tzLXh.png?1)
 
 # Welcome to Owl Oiche
 Soon to be deployed on iTunes App store and Google Play store!
