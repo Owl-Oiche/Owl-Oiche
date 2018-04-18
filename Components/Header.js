@@ -53,6 +53,12 @@ class Header extends Component {
               style={styles.siteTitle} />
               <Text style={styles.siteTitleText}>
                 Owl Oíche
+              <View>
+                <Text style={styles.catchPhrase}>
+                  For folks who like to keep theatrical hours,{'\n'}
+                  AKA Night Owls
+                </Text>
+              </View>
               </Text>
             </View>
             <View style={styles.header}>
@@ -90,11 +96,13 @@ const styles = StyleSheet.create({
   },
   siteTitle: {
     height: .10 * Dimensions.get('window').height,
+    marginLeft: 15,
     width: .17 * Dimensions.get('window').width,
   },
   siteTitleText: {
     color: 'white',
     fontSize: 21,
+    marginLeft: 25,
   },
   header: {
     backgroundColor: '#3b2133',
@@ -102,6 +110,10 @@ const styles = StyleSheet.create({
     height: 0.10 * Dimensions.get('window').height,
     justifyContent: 'space-evenly',
     alignItems: 'center',
+  },
+  catchPhrase: {
+    fontSize: 11, color: 'white',
+    marginRight: 10,
   },
   currentTab: {
     color: 'white',
