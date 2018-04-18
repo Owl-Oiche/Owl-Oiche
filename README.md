@@ -1,34 +1,49 @@
-### Overview & Weekly Goals
 
-This is an app built with react-native and redux. Using the Yelp API we are creating an app that will list businesses open past midnight depending on your location.  
--  wireframes can be found in wireframes folder
+# Welcome to Owl Oiche
+Soon to be deployed on iTunes App store and Google Play store!
+
+Use the Yelp API to retrieve information and images of various businesses that are open after midnight. 
+This app was created for folks who like to keep theatrical hours AKA night owls. 
+
+## Instructions for setup
+The app is built with [Expo](https://expo.io/) and [React-Native](https://facebook.github.io/react-native/)
+
+#### iOS
+- Download the Epxo app [here](https://itunes.apple.com/app/apple-store/id982107779)
+- Clone the Owl Oiche repository [here](https://github.com/Owl-Oiche/Owl-Oiche.git)
+- Run the following commands in your terminal
+``` 
+ $ npm install 
+ $ exp start
+ ```
+ Open a new tab in your terminal and run 
+ ```
+  $ exp send -s <your-phone-number-or-email>
+  ```
+ 
+#### Android
+- Download the Epxo app [here](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www)
+- Clone the Owl Oiche repository [here](https://github.com/Owl-Oiche/Owl-Oiche.git)
+- Run the following commands in your terminal
+``` 
+ $ npm install 
+ $ exp start
+ ```
+- Scan the QR code in the terminal using the Expo app. 
 
 
-## Specifications
+## What is Owl Oiche?
+This app was built to showcase the benifits of React Native and hopefully help some friends out along the way. Have you ever been out late at night, way past your bedtime and needed to put somthing in your tummy? What about needing to get gas for your morning commute or Advil for that headache that you are 80% sure will hit you at 7am? Owl Oiche is here for you! From restaurants to wifi, we will show you only whats open after midnight. 
+To get started type a city in the search bar and chose a tab that interests you:
+- Restaurants
+- Pharmacies
+- WIFI
+- Miscellaneous(gas stations, laundromats, and grocery stores)
 
-A user should be able to:
-- [ ] decide to give permission for geo location. Or do a manual search in search bar
-- [ ] toggle between main topics and misc.
-- [ ] return to home page from anywhere on app
-
-## Implementation Plan
-- [x] write out project plan
-- [x] design architecture of redux state
-- [x] create wireframes using balsamiq
-- [x] compartmentalize for the components. aka compomentalize
-- [ ] organize components verses containers.
-- [x] create redux store
-- [ ] create containers
-- [ ] create components
-- [ ] styling with stylesheet
-- [ ] testing with jest
-- [ ] deploying
+You can switch tabs at any time and pull down to refresh. Tap on any business and you will be directed to the details page. From the details page just tap the arrow top left to go back to your search. Tap on a tab to search in that catagory.
 
 
 
-## Tech stack for project
--  node.js
--  React-native
--  Redux
--  Redux-saga
--  Jest
+## Licensing
+Licensed under the AGPL license. for mor info look at our license.md file. 
+We are using the [Yelp API](https://www.yelp.com/developers/documentation/v3) to fetch data.
