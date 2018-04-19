@@ -5,7 +5,8 @@ import { Image,
          TouchableHighlight,
          FlatList,
          StyleSheet,
-         Dimensions, }
+         Dimensions,
+         ActivityIndicator }
 from 'react-native';
 import { connect } from 'react-redux';
 
@@ -31,7 +32,10 @@ class BusinessList extends PureComponent {
 
   renderFooter() {
     return (
-      <View style={styles.footer} />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color='white' />
+        <View style={styles.footer} />
+      </View>
     );
   }
 
