@@ -44,22 +44,24 @@ class Header extends Component {
         );
     } else {
       return (
-        <View >
+        <View>
           <View style={styles.topBuffer}>
             <View />
           </View>
           <View style={styles.header}>
             <Image source={ img }
               style={styles.siteTitle} />
-              <Text style={styles.siteTitleText}>
-                Owl Oíche
-              <View>
+              <View style={styles.headerTextContainer}>
+                <Text style={styles.siteTitleText}>
+                  Owl Oíche
+                </Text>
                 <Text style={styles.catchPhrase}>
-                  For folks who like to keep theatrical hours,{'\n'}
+                  For folks who like to keep theatrical hours,
+                </Text>
+                <Text style={styles.catchPhrase}>
                   AKA Night Owls
                 </Text>
               </View>
-              </Text>
             </View>
             <View style={styles.header}>
               <Text style={styles.currentTab}>
@@ -89,41 +91,47 @@ const actions = {
 };
 export default connect(mapStateToProps, actions)(Header);
 
+const { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   topBuffer: {
     backgroundColor: '#3b2133',
-    paddingTop: 0.15 * Dimensions.get('window').height,
-  },
-  siteTitle: {
-    height: .10 * Dimensions.get('window').height,
-    marginLeft: 15,
-    width: .17 * Dimensions.get('window').width,
-  },
-  siteTitleText: {
-    color: 'white',
-    fontSize: 21,
-    marginLeft: 25,
+    paddingTop: 0.15 * height,
   },
   header: {
     backgroundColor: '#3b2133',
     flexDirection: 'row',
-    height: 0.10 * Dimensions.get('window').height,
+    height: 0.10 * height,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
+  siteTitle: {
+    height: .10 * height,
+    marginLeft: 15,
+    width: .17 * width,
+  },
+  headerTextContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  siteTitleText: {
+    color: 'white',
+    fontSize: 21,
+  },
   catchPhrase: {
-    fontSize: 11, color: 'white',
-    marginRight: 10,
+    color: 'white',
+    fontSize: 11,
   },
   currentTab: {
     color: 'white',
-    width: .33 * Dimensions.get('window').width,
+    width: .33 * width,
   },
   searchInput: {
     paddingLeft: 10,
     backgroundColor: '#d2d6d7',
-    height: 0.05 * Dimensions.get('window').height,
-    width: .45 * Dimensions.get('window').width,
+    height: 0.05 * height,
+    width: .45 * width,
     borderStyle: 'solid',
     borderRadius: 7,
     borderWidth: 1,

@@ -5,9 +5,7 @@ import { Image,
          TouchableHighlight,
          FlatList,
          StyleSheet,
-         Dimensions,
-         Platform,
-         ActivityIndicator, }
+         Dimensions, }
 from 'react-native';
 import { connect } from 'react-redux';
 
@@ -53,7 +51,6 @@ class BusinessList extends PureComponent {
   }
 
   render() {
-    console.log('This.props.businesses first item ----> ', this.props.businesses[0].name);
     return (
       <View>
         <FlatList
@@ -86,7 +83,6 @@ class BusinessList extends PureComponent {
           )}
         />
       </View>
-
     );
   }
 }

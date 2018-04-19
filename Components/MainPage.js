@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image, Dimensions, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
+import { View,
+         Text,
+         Image,
+         Dimensions,
+         TouchableWithoutFeedback,
+         Keyboard,
+         ActivityIndicator,
+         StyleSheet } from 'react-native';
 import moment from 'moment';
 import { setLoading } from '../Actions/isLoading';
 
@@ -72,11 +79,14 @@ class MainPage extends Component {
     const businesses = this.decideBusinessesToDisplay();
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={{ backgroundColor: '#744516' }}>
+        <View style={styles.pageBackground}>
           <Header searchSubmit={() => this.searchSubmit()} />
           <Tabs />
           { this.props.isLoading ? (
-            <ActivityIndicator size='large' color='white' />
+            <View>
+              <ActivityIndicator size='large' color='white' />
+              <View style={styles.loadingBackground} />
+            </View>
           ) : (
              this.props.onDetailPage.onDetailPage ? (
                <DetailPage />
@@ -85,9 +95,9 @@ class MainPage extends Component {
                  <BusinessList businesses={businesses} fetchData={() => this.fetchBusinesses()} />
                ) : (
                  <View>
-                   <Text style={{ color: 'white' }}>We need to know your location, please enter a city above.</Text>
+                   <Text style={styles.text}>We need to know your location, please enter a city above.</Text>
                    <Image source={ img }
-                     style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} />
+                     style={styles.homeImage} />
                 </View>
                 )
              )
@@ -113,3 +123,22 @@ const actions = {
 };
 
 export default connect(mapStateToProps, actions)(MainPage);
+
+const { height, width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  pageBackground: {
+    backgroundColor: '#744516',
+  },
+  loadingBackground: {
+    backgroundColor: '#744516',
+    height,
+  },
+  text: {
+    color: 'white',
+  },
+  homeImage: {
+    height: height,
+    width: width,
+  },
+});
