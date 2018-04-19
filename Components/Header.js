@@ -27,7 +27,7 @@ class Header extends Component {
           </View>
           <View style={styles.header}>
             <Image source={ img }
-              style={styles.siteTitle} />
+              style={styles.siteLogo} />
               <Text style={styles.siteTitleText}>
                 Owl Oíche
               </Text>
@@ -50,7 +50,7 @@ class Header extends Component {
           </View>
           <View style={styles.header}>
             <Image source={ img }
-              style={styles.siteTitle} />
+              style={styles.siteLogo} />
               <View style={styles.headerTextContainer}>
                 <Text style={styles.siteTitleText}>
                   Owl Oíche
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  siteTitle: {
+  siteLogo: {
     height: .10 * height,
     marginLeft: 15,
     width: .17 * width,
