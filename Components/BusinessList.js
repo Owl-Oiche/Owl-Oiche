@@ -6,8 +6,7 @@ import { Image,
          FlatList,
          StyleSheet,
          Dimensions,
-         Platform,
-         ActivityIndicator, }
+         ActivityIndicator }
 from 'react-native';
 import { connect } from 'react-redux';
 
@@ -33,7 +32,10 @@ class BusinessList extends PureComponent {
 
   renderFooter() {
     return (
-      <View style={styles.footer} />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color='white' />
+        <View style={styles.footer} />
+      </View>
     );
   }
 
@@ -53,7 +55,6 @@ class BusinessList extends PureComponent {
   }
 
   render() {
-    console.log('This.props.businesses first item ----> ', this.props.businesses[0].name);
     return (
       <View>
         <FlatList
@@ -86,7 +87,6 @@ class BusinessList extends PureComponent {
           )}
         />
       </View>
-
     );
   }
 }

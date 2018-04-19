@@ -72,10 +72,12 @@ function mapStateToProps({ activeTab, onDetailPage }) {
 
 export default connect(mapStateToProps, { setActiveTab, setOnDetailPage })(Tabs);
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   notSelected: {
     backgroundColor: '#d2d6d7',
-    width: 0.25 * Dimensions.get('window').width,
+    width: 0.25 * width,
     height: 40,
     alignItems: 'center',
   },
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     borderRightColor: '#4d5b62',
     borderLeftColor: '#4d5b62',
     height: 40,
-    width: 0.25 * Dimensions.get('window').width,
+    width: 0.25 * width,
     alignItems: 'center',
   },
   text: {
