@@ -55,8 +55,6 @@ class BusinessList extends PureComponent {
   }
 
   render() {
-    // const { uri } = this.props;
-    // const path = CacheManager.get(uri).getPath();
     return (
       <View>
         <FlatList

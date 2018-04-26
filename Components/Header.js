@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, Dimensions, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
+import { Constants, Location, Permissions } from 'expo';
 
 import { setSearchValue } from '../Actions/searchBar';
 import { isLoading } from '../Actions/isLoading';
+import { setLocation } from '../Actions/setLocation';
 import img from '../assets/Owl-Oiche-logo.png';
 import { setOnDetailPage } from '../Actions/onDetailPage';
 import { Entypo } from '@expo/vector-icons';
 
 class Header extends Component {
+  componentWillMount() {
+    this.getLocationAsync();
+  }
+
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      let location = await Location.getCurrentPositionAsync({});
+      console.log('this is the location', location);
+      // this is where we will query our server and get the city from the coordinates
+      // let cityName = serverAPI call
+      // this.props.setLocation(cityName)
+      // this.props.searchSubmit
+    }
+  };
 
   searchUpdate(text) {
     this.props.setSearchValue(text);
@@ -70,7 +87,10 @@ class Header extends Component {
               <TextInput placeholder='Enter City'
                 style={styles.searchInput}
                 onChangeText={(text)=> this.searchUpdate(text)}
-                onSubmitEditing={(submit) => this.props.searchSubmit(submit)}
+                onSubmitEditing={(submit) => {
+                  this.props.setLocation(this.props.searchBar);
+                  this.props.searchSubmit();
+                }}
                 spellCheck={true}
                 value={this.props.searchBar}
               />
@@ -88,6 +108,7 @@ function mapStateToProps({ activeTab, searchBar, onDetailPage }) {
 const actions = {
   setSearchValue,
   setOnDetailPage,
+  setLocation,
 };
 export default connect(mapStateToProps, actions)(Header);
 

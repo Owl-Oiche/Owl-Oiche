@@ -6,6 +6,7 @@ import isLoading from './isLoading';
 import onDetailPage from './onDetailPage';
 import businessHours from './businessHours';
 import offSetCount from './offSetCount';
+import location from './setLocation';
 
 const rootReducer = combineReducers({
   activeTab,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   onDetailPage,
   businessHours,
   offSetCount,
+  location,
 });
 
 export default rootReducer;

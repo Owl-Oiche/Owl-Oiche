@@ -45,25 +45,26 @@ class MainPage extends Component {
   }
 
   fetchBusinesses() {
+    console.log("(ᗒᗣᗕ) (•̀o•́)ง this.props.location", this.props.location )
     const hour = moment().hour();
     if (hour >= 0 && hour <= 4) {
-      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_now: true, offset: this.props.offSetCount })}`);
-      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'restaurant', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'pharmacy', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'wifi', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'gas', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'grocery', open_now: true, offset: this.props.offSetCount })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'laundry', open_now: true, offset: this.props.offSetCount })}`);
     } else {
       const year = moment().year();
       const month = moment().month();
       const day = moment().date();
       const unixTime = new Date(year, month, day + 1, 0, 15).getTime() / 1000;
-      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'restaurant', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'pharmacy', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'wifi', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'gas', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'grocery', open_at: unixTime, offset: this.props.offSetCount })}`);
-      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.searchBar, term: 'laundry', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchRestaurantsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'restaurant', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchPharmaciesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'pharmacy', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchWifiSpotsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'wifi', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchGasStationsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'gas', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchGroceriesRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'grocery', open_at: unixTime, offset: this.props.offSetCount })}`);
+      this.props.fetchLaundromatsRequest(`https://owl-oiche-yelp-api.herokuapp.com/api/yelpResults${makeQuery({ location: this.props.location, term: 'laundry', open_at: unixTime, offset: this.props.offSetCount })}`);
     }
   }
 
@@ -108,8 +109,8 @@ class MainPage extends Component {
   }
 }
 
-function mapStateToProps({ businesses, activeTab, isLoading, onDetailPage, searchBar, offSetCount }) {
-  return { businesses, activeTab, isLoading, onDetailPage, searchBar, offSetCount };
+function mapStateToProps({ businesses, activeTab, isLoading, onDetailPage, searchBar, offSetCount, location }) {
+  return { businesses, activeTab, isLoading, onDetailPage, searchBar, offSetCount, location, };
 }
 
 const actions = {
