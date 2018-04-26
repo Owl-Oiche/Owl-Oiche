@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Image,
-         Text,
+import { Text,
+         Image,
          View,
          TouchableHighlight,
-         FlatList,
          StyleSheet,
          Dimensions,
          ActivityIndicator }
 from 'react-native';
+import { OptimizedFlatList as FlatList } from 'react-native-optimized-flatlist';
 import { connect } from 'react-redux';
 
 import { setOnDetailPage } from '../Actions/onDetailPage';
@@ -55,6 +55,8 @@ class BusinessList extends PureComponent {
   }
 
   render() {
+    // const { uri } = this.props;
+    // const path = CacheManager.get(uri).getPath();
     return (
       <View>
         <FlatList
